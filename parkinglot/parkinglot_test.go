@@ -96,7 +96,7 @@ func Test_airport_parking_lot_calculate_parking_charges(t *testing.T) {
 	receipt4 := parkingLot.UnPark(ticket7.GetNumber())
 	assert.Equal(t, float64(0), receipt4.GetParkingCharges())
 
-	// the very first scooter un parks from spot 0 & it gets charged 10 (less than an hour)
+	// the very first scooter un parks from spot 0 & it gets charged 600 (60 * 10 hours)
 	receipt5 := parkingLot.UnPark(ticket1.GetNumber())
 	assert.Equal(t, float64(600), receipt5.GetParkingCharges())
 
@@ -104,7 +104,7 @@ func Test_airport_parking_lot_calculate_parking_charges(t *testing.T) {
 	ticket9 := parkingLot.Park("Scooter")
 	assert.Equal(t, 0, ticket9.GetSpotNumber())
 
-	// trying to un park from a ticket number which is not in the system should nil
+	// trying to un park from a ticket number which is not in the system should return nil
 	receipt6 := parkingLot.UnPark(99990)
 	assert.Equal(t, nil, receipt6)
 }
