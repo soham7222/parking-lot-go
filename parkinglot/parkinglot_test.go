@@ -5,6 +5,7 @@ import (
 	"github.com/stretchr/testify/assert"
 	"sahaj-parking-lot/clock/mocks"
 	"sahaj-parking-lot/enum"
+	"sahaj-parking-lot/feemodel"
 	"testing"
 	"time"
 )
@@ -38,11 +39,12 @@ func Test_airport_parking_lot_calculate_parking_charges(t *testing.T) {
 		mockClock.EXPECT().Now().Return(time.Now().Add(-5*time.Minute)).Times(1),
 	)
 
+	feeFactory := feemodel.NewFeeFactory()
 	parkingLot := NewParkingLot(
 		map[enum.SpotType]int{
 			enum.TwoWheelers:      3,
 			enum.SmallFourWheeler: 1,
-		}, enum.Airport, mockClock)
+		}, enum.Airport, mockClock, feeFactory)
 
 	//first scooter parks to spot 0
 	ticket1 := parkingLot.Park("Scooters")
@@ -101,4 +103,8 @@ func Test_airport_parking_lot_calculate_parking_charges(t *testing.T) {
 	//seventh scooter comes for parking with spot 0 and spot 2 opened. It will get parked in spot 0 as it's the first one
 	ticket9 := parkingLot.Park("Scooters")
 	assert.Equal(t, 0, ticket9.GetSpotNumber())
+
+	// trying to un park from a ticket number which is not in the system should nil
+	receipt6 := parkingLot.UnPark(99990)
+	assert.Equal(t, nil, receipt6)
 }

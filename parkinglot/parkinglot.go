@@ -24,10 +24,12 @@ type parkingLot struct {
 	ticketIdGenerator  func() int
 	receiptIdGenerator func() int
 	clock              clock.Clock
+	feeFactory         feemodel.FeeFactory
 }
 
 func NewParkingLot(totalCapacity map[enum.SpotType]int,
-	parkingType enum.ParkingLotType, clock clock.Clock) ParkingLot {
+	parkingType enum.ParkingLotType, clock clock.Clock,
+	feeFactory feemodel.FeeFactory) ParkingLot {
 	return &parkingLot{
 		totalCapacity:      totalCapacity,
 		remainingCapacity:  totalCapacity,
@@ -37,6 +39,7 @@ func NewParkingLot(totalCapacity map[enum.SpotType]int,
 		ticketIdGenerator:  counter(),
 		receiptIdGenerator: counter(),
 		clock:              clock,
+		feeFactory:         feeFactory,
 	}
 }
 
@@ -71,9 +74,10 @@ func (p *parkingLot) UnPark(ticketNumber int) receipt.Receipt {
 
 		p.spots[slotToBeFreed.GetType()][slotToBeFreed.GetNumber()] = spot.Spot{}
 
-		feeFactory := feemodel.NewFeeFactory()
-		feeCalculator := feeFactory.GetFeeCalculator(p.parkingType)
-		parkingCharges := feeCalculator.Calculate(slotToBeFreed.GetEntryTime(), slotToBeFreed.GetType())
+		parkingCharges := p.feeFactory.
+			GetFeeCalculator(p.parkingType).
+			Calculate(slotToBeFreed.GetEntryTime(), slotToBeFreed.GetType())
+
 		receiptForParking := receipt.NewReceipt(p.receiptIdGenerator(),
 			ticketNumber, slotToBeFreed.GetEntryTime(), p.clock.Now(), parkingCharges)
 		return receiptForParking

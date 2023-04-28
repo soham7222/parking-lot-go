@@ -2,7 +2,6 @@ package receipt
 
 import (
 	"fmt"
-	"strconv"
 	"time"
 )
 
@@ -25,7 +24,7 @@ func (r *receipt) Generate() {
 	fmt.Println("Parking receipt:")
 	fmt.Println("")
 	fmt.Println("receipt number:", r.id)
-	fmt.Println("Ticket number:", r.ticketNumber)
+	fmt.Println("Ticket number:", fmt.Sprintf("%03d", r.ticketNumber))
 	fmt.Println("Entry Date-time:", r.vehicleEntryTime.Format("02-Jan-2006 15:04:05"))
 	fmt.Println("Exit Date-time:", r.vehicleExitTime.Format("02-Jan-2006 15:04:05"))
 	fmt.Println("Fees:", r.parkingCharges)
@@ -43,7 +42,7 @@ func NewReceipt(id,
 	parkingCharges float64,
 ) Receipt {
 	return &receipt{
-		"R-" + strconv.Itoa(id),
+		"R-" + fmt.Sprintf("%03d", id),
 		ticketNumber,
 		vehicleEntryTime,
 		vehicleExitTime,

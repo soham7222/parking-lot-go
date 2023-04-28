@@ -32,7 +32,7 @@ func (t *ticket) Issue() {
 	fmt.Println("------------------------------------------")
 	fmt.Println("Parking ticket:")
 	fmt.Println("")
-	fmt.Println("ticket number:", t.number)
+	fmt.Println("ticket number:", fmt.Sprintf("%03d", t.number))
 	fmt.Println("spot number:", t.spotNumber)
 	fmt.Println("Entry Date:", t.vehicleEntryTime.Format("02-Jan-2006 15:04:05"))
 	fmt.Println("------------------------------------------")

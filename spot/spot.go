@@ -1,8 +1,8 @@
 package spot
 
 import (
-	"sahaj-parking-lot/datatype"
 	"sahaj-parking-lot/enum"
+	"sahaj-parking-lot/utils"
 	"time"
 )
 
@@ -14,7 +14,7 @@ type Spot struct {
 	vehicleEntryTime time.Time
 }
 
-var slotVehicleMapping = map[enum.SpotType]datatype.Slice{
+var slotVehicleMapping = map[enum.SpotType]utils.Slice{
 	enum.TwoWheelers:      {"Motorcycles", "Scooters"},
 	enum.SmallFourWheeler: {"Cars", "SUVs"},
 	enum.BigFourWheeler:   {"Buses", "Trucks"},

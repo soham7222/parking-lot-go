@@ -3,15 +3,17 @@ package main
 import (
 	"sahaj-parking-lot/clock"
 	"sahaj-parking-lot/enum"
+	"sahaj-parking-lot/feemodel"
 	"sahaj-parking-lot/parkinglot"
 )
 
 func main() {
+	feeFactory := feemodel.NewFeeFactory()
 	parkingLot := parkinglot.NewParkingLot(
 		map[enum.SpotType]int{
 			enum.TwoWheelers:      3,
 			enum.SmallFourWheeler: 1,
-		}, enum.Airport, clock.NewClock())
+		}, enum.Airport, clock.NewClock(), feeFactory)
 	ticket1 := parkingLot.Park("Scooters")
 	ticket1.Issue()
 	ticket2 := parkingLot.Park("Scooters")

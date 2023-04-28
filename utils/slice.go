@@ -1,4 +1,4 @@
-package datatype
+package utils
 
 type Slice []any
 
