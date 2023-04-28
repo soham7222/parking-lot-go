@@ -15,7 +15,7 @@ func Test_airport_parking_lot_calculate_parking_charges(t *testing.T) {
 	mockClock := mocks.NewMockClock(mockController)
 
 	gomock.InOrder(
-		//The first two scooters have entered 10 hours before
+		//The first two Scooter have entered 10 hours before
 		mockClock.EXPECT().Now().Return(time.Now().Add(-10*time.Hour)).Times(2),
 		//The third scooter has entered 7 hours before
 		mockClock.EXPECT().Now().Return(time.Now().Add(-7*time.Hour)).Times(1),
@@ -33,7 +33,7 @@ func Test_airport_parking_lot_calculate_parking_charges(t *testing.T) {
 		mockClock.EXPECT().Now().Return(time.Now().Add(-10*time.Minute)).Times(1),
 		// the sixth scooter have entered 10 minutes before
 		mockClock.EXPECT().Now().Return(time.Now().Add(-5*time.Minute)).Times(1),
-		// two scooters get un parked
+		// two Scooter get un parked
 		mockClock.EXPECT().Now().Return(time.Now()).Times(2),
 		// the seventh scooter have entered 10 minutes before
 		mockClock.EXPECT().Now().Return(time.Now().Add(-5*time.Minute)).Times(1),
@@ -47,16 +47,16 @@ func Test_airport_parking_lot_calculate_parking_charges(t *testing.T) {
 		}, enum.Airport, mockClock, feeFactory)
 
 	//first scooter parks to spot 0
-	ticket1 := parkingLot.Park("Scooters")
+	ticket1 := parkingLot.Park("Scooter")
 	assert.Equal(t, 0, ticket1.GetSpotNumber())
 	assert.Equal(t, 1, ticket1.GetNumber())
 
 	//second scooter parks to spot 1
-	ticket2 := parkingLot.Park("Scooters")
+	ticket2 := parkingLot.Park("Scooter")
 	assert.Equal(t, 1, ticket2.GetSpotNumber())
 
 	//third scooter parks to spot 2
-	ticket3 := parkingLot.Park("Scooters")
+	ticket3 := parkingLot.Park("Scooter")
 	assert.Equal(t, 2, ticket3.GetSpotNumber())
 
 	//second scooter un parks from spot 1 & it gets charged 600 (10 hours * 60)
@@ -64,12 +64,12 @@ func Test_airport_parking_lot_calculate_parking_charges(t *testing.T) {
 	assert.Equal(t, float64(600), receipt1.GetParkingCharges())
 
 	//fourth scooter parks to spot 1 as spot 1 is empty and first available
-	ticket4 := parkingLot.Park("Scooters")
+	ticket4 := parkingLot.Park("Scooter")
 	ticket4.Issue()
 	assert.Equal(t, 1, ticket4.GetSpotNumber())
 
 	// first car parks to spot 0 as it's different parking category from scooter/motorcycle
-	ticket5 := parkingLot.Park("Cars")
+	ticket5 := parkingLot.Park("Car")
 	assert.Equal(t, 0, ticket5.GetSpotNumber())
 
 	// second scooter un parks from spot 2 & it gets charged 280 (7 hours * 40)
@@ -81,15 +81,15 @@ func Test_airport_parking_lot_calculate_parking_charges(t *testing.T) {
 	assert.Equal(t, float64(60), receipt3.GetParkingCharges())
 
 	// second car parks to spot 0
-	ticket6 := parkingLot.Park("Cars")
+	ticket6 := parkingLot.Park("Car")
 	assert.Equal(t, 0, ticket6.GetSpotNumber())
 
 	//fifth scooter parks to spot 1 as spot 1 is empty and first available
-	ticket7 := parkingLot.Park("Scooters")
+	ticket7 := parkingLot.Park("Scooter")
 	assert.Equal(t, 2, ticket7.GetSpotNumber())
 
 	//sixth scooter comes for parking but parking is full so Ticket is nil
-	ticket8 := parkingLot.Park("Scooters")
+	ticket8 := parkingLot.Park("Scooter")
 	assert.Nil(t, ticket8)
 
 	// fifth scooter un parks from spot 2 & it gets charged 0 (less than an hour)
@@ -101,7 +101,7 @@ func Test_airport_parking_lot_calculate_parking_charges(t *testing.T) {
 	assert.Equal(t, float64(600), receipt5.GetParkingCharges())
 
 	//seventh scooter comes for parking with spot 0 and spot 2 opened. It will get parked in spot 0 as it's the first one
-	ticket9 := parkingLot.Park("Scooters")
+	ticket9 := parkingLot.Park("Scooter")
 	assert.Equal(t, 0, ticket9.GetSpotNumber())
 
 	// trying to un park from a ticket number which is not in the system should nil

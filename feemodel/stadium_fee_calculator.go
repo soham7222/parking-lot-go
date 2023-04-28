@@ -38,6 +38,11 @@ func (s stadiumFeeCalculator) calculate(timeSpent time.Duration,
 
 	minutesSpent := timeSpent.Minutes()
 	hoursSpent := math.Round(timeSpent.Hours())
+
+	if hoursSpent == 0 && minutesSpent != 0 {
+		return firstIntervalFee
+	}
+
 	if minutesSpent > 12*60 {
 		return hoursSpent * thirdIntervalFee
 	} else if minutesSpent > 4*60 {

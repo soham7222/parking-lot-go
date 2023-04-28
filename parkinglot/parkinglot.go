@@ -1,7 +1,6 @@
 package parkinglot
 
 import (
-	"fmt"
 	"sahaj-parking-lot/clock"
 	"sahaj-parking-lot/enum"
 	"sahaj-parking-lot/feemodel"
@@ -17,8 +16,8 @@ type ParkingLot interface {
 
 type parkingLot struct {
 	totalCapacity      map[enum.SpotType]int
-	spots              map[enum.SpotType][]spot.Spot
 	remainingCapacity  map[enum.SpotType]int
+	spots              map[enum.SpotType][]spot.Spot
 	parkingType        enum.ParkingLotType
 	ticketSpotMapper   map[int]*spot.Spot
 	ticketIdGenerator  func() int
@@ -50,7 +49,6 @@ func (p *parkingLot) Park(vehicle string) ticket.Ticket {
 
 	assignedSlotNumber := p.getFirstAvailableSlotNumber(assignedSpotType)
 	if assignedSlotNumber < 0 {
-		fmt.Println("full")
 		return nil
 	} else {
 		assignedSpot.AssignSpotNumberAndMarkAsOccupied(assignedSlotNumber)

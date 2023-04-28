@@ -9,7 +9,7 @@ import (
 
 func TestSpot(t *testing.T) {
 	mockDate := time.Date(2022, time.July, 15, 0, 0, 0, 0, time.Local)
-	mockSpot := NewSpot("Cars", mockDate)
+	mockSpot := NewSpot("Car", mockDate)
 	assert.Equal(t, mockSpot.IsOccupied(), false)
 	mockSpot.AssignSpotNumberAndMarkAsOccupied(12)
 	assert.Equal(t, mockSpot.GetNumber(), 12)

@@ -19,7 +19,6 @@ type receipt struct {
 }
 
 func (r *receipt) Generate() {
-
 	fmt.Println("------------------------------------------")
 	fmt.Println("Parking receipt:")
 	fmt.Println("")

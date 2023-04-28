@@ -42,6 +42,11 @@ func (a airportFeeCalculator) calculateForTwoWheelers(timeSpent time.Duration) f
 func (a airportFeeCalculator) calculateForSmallFourWheelers(timeSpent time.Duration) float64 {
 	spentInMinutes := timeSpent.Minutes()
 	timeSpentInHours := math.Round(timeSpent.Hours())
+
+	if spentInMinutes != 0 && timeSpentInHours == 0 {
+		return 60
+	}
+
 	if spentInMinutes > 24*60 {
 		return timeSpentInHours * 100
 	} else if spentInMinutes > 12*60 {

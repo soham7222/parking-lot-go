@@ -1,41 +1,68 @@
 package main
 
 import (
+	"bufio"
+	"fmt"
+	"os"
 	"sahaj-parking-lot/clock"
 	"sahaj-parking-lot/enum"
 	"sahaj-parking-lot/feemodel"
 	"sahaj-parking-lot/parkinglot"
+	"strconv"
+	"strings"
+)
+
+var (
+	feeFactory = feemodel.NewFeeFactory()
+	parkingLot = parkinglot.NewParkingLot(
+		map[enum.SpotType]int{
+			enum.TwoWheelers:      3,
+			enum.SmallFourWheeler: 3,
+		}, enum.Mall, clock.NewClock(), feeFactory)
 )
 
 func main() {
-	feeFactory := feemodel.NewFeeFactory()
-	parkingLot := parkinglot.NewParkingLot(
-		map[enum.SpotType]int{
-			enum.TwoWheelers:      3,
-			enum.SmallFourWheeler: 1,
-		}, enum.Airport, clock.NewClock(), feeFactory)
-	ticket1 := parkingLot.Park("Scooters")
-	ticket1.Issue()
-	ticket2 := parkingLot.Park("Scooters")
-	ticket2.Issue()
-	ticket3 := parkingLot.Park("Scooters")
-	ticket3.Issue()
-	receipt1 := parkingLot.UnPark(ticket2.GetNumber())
-	receipt1.Generate()
-	ticket4 := parkingLot.Park("Scooters")
-	ticket4.Issue()
-	ticket5 := parkingLot.Park("Cars")
-	ticket5.Issue()
-	parkingLot.UnPark(ticket1.GetNumber())
-	receipt2 := parkingLot.UnPark(ticket5.GetNumber())
-	receipt2.Generate()
-	ticket6 := parkingLot.Park("Cars")
-	ticket6.Issue()
-	ticket7 := parkingLot.Park("Scooters")
-	ticket7.Issue()
-	receipt3 := parkingLot.UnPark(6)
-	receipt3.Generate()
-	receipt4 := parkingLot.UnPark(7)
-	receipt4.Generate()
+	scanner := bufio.NewScanner(os.Stdin)
+	for {
+		fmt.Print("> ")
+		if !scanner.Scan() {
+			break
+		}
+		input := scanner.Text()
 
+		if input == "exit" {
+			break
+		}
+
+		if strings.Contains(input, "unpark") {
+			initiateUnParkAndGenerateReceipt(input)
+		} else if strings.Contains(input, "park") {
+			initiateParkAndIssueTicket(input)
+		}
+	}
+	if err := scanner.Err(); err != nil {
+		fmt.Fprintln(os.Stderr, "Error:", err)
+	}
+}
+
+func initiateParkAndIssueTicket(input string) {
+	words := strings.Split(input, " ")
+	ticket := parkingLot.Park(words[len(words)-1])
+	if ticket != nil {
+		ticket.Issue()
+	} else {
+		fmt.Printf("The parking is full for %s. Please come back later. \n", words[len(words)-1])
+	}
+}
+
+func initiateUnParkAndGenerateReceipt(input string) {
+	words := strings.Split(input, " ")
+	ticketNumber := words[len(words)-1]
+	ticketID, _ := strconv.Atoi(ticketNumber)
+	receipt := parkingLot.UnPark(ticketID)
+	if receipt != nil {
+		receipt.Generate()
+	} else {
+		fmt.Println("Please enter correct ticket id without the leading zeros")
+	}
 }

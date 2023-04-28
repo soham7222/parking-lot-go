@@ -2,7 +2,7 @@ package spot
 
 import (
 	"sahaj-parking-lot/enum"
-	"sahaj-parking-lot/utils"
+	"strings"
 	"time"
 )
 
@@ -14,15 +14,15 @@ type Spot struct {
 	vehicleEntryTime time.Time
 }
 
-var slotVehicleMapping = map[enum.SpotType]utils.Slice{
-	enum.TwoWheelers:      {"Motorcycles", "Scooters"},
-	enum.SmallFourWheeler: {"Cars", "SUVs"},
-	enum.BigFourWheeler:   {"Buses", "Trucks"},
+var slotVehicleMapping = map[enum.SpotType][]string{
+	enum.TwoWheelers:      {"Motorcycle", "Scooter"},
+	enum.SmallFourWheeler: {"Car", "SUV"},
+	enum.BigFourWheeler:   {"Bus", "Truck"},
 }
 
 func (s *Spot) GetType() enum.SpotType {
 	for slotType, vehicles := range slotVehicleMapping {
-		if vehicles.Contains(s.vehicle) {
+		if contains(vehicles, s.vehicle) {
 			s.spotType = slotType
 			return slotType
 		}
@@ -53,4 +53,13 @@ func NewSpot(vehicle string, vehicleEntryTime time.Time) Spot {
 		vehicle:          vehicle,
 		vehicleEntryTime: vehicleEntryTime,
 	}
+}
+
+func contains(source []string, value string) bool {
+	for _, a := range source {
+		if strings.EqualFold(a, value) {
+			return true
+		}
+	}
+	return false
 }
