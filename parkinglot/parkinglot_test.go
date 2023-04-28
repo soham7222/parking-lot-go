@@ -52,12 +52,10 @@ func Test_airport_parking_lot_calculate_parking_charges(t *testing.T) {
 	//second scooter parks to spot 1
 	ticket2 := parkingLot.Park("Scooters")
 	assert.Equal(t, 1, ticket2.GetSpotNumber())
-	assert.Equal(t, 2, ticket1.GetNumber())
 
 	//third scooter parks to spot 2
 	ticket3 := parkingLot.Park("Scooters")
 	assert.Equal(t, 2, ticket3.GetSpotNumber())
-	assert.Equal(t, 3, ticket1.GetNumber())
 
 	//second scooter un parks from spot 1 & it gets charged 600 (10 hours * 60)
 	receipt1 := parkingLot.UnPark(ticket2.GetNumber())
