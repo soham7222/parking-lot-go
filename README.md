@@ -41,11 +41,23 @@ Unpark scooter, ticket number 001
 
 #### Example:
 
-This is an example with Mall parking lot where you have three scooter/motorcycle and three small car/suv parking. The current `main.go` illustrates this example. 
-
 ```sh
 $ go run main.go
-> 
+>
+Commands available to use:
+Type exit to exit the program
+Type exit to reset to reset parking lot mode
+Choose Your parking lot. Below options are available
+1. Mall
+2. Stadium
+3. Airport
+> Mall
+Type the number of spots to be added for scooter/motorcycle 
+> 3
+Type the number of spots to be added for cars/suv
+> 3
+Type the number of spots to be added for bus/truck
+> 0 
 > Park scooter
 ------------------------------------------
 Parking ticket:
