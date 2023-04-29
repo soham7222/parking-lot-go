@@ -14,7 +14,7 @@ func TestSpot(t *testing.T) {
 	mockSpot.AssignSpotNumberAndMarkAsOccupied(12)
 	assert.Equal(t, mockSpot.GetNumber(), 12)
 	assert.Equal(t, mockSpot.GetType(), enum.SmallFourWheeler)
-	assert.Equal(t, mockSpot.GetEntryTime(), mockDate)
+	assert.Equal(t, mockSpot.GetVehicleEntryTime(), mockDate)
 	assert.Equal(t, mockSpot.IsOccupied(), true)
 
 	mockSpot2 := NewSpot("test", mockDate)

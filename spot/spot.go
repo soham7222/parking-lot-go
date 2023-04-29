@@ -39,7 +39,7 @@ func (s *Spot) IsOccupied() bool {
 	return s.occupied
 }
 
-func (s *Spot) GetEntryTime() time.Time {
+func (s *Spot) GetVehicleEntryTime() time.Time {
 	return s.vehicleEntryTime
 }
 

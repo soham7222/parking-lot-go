@@ -70,7 +70,7 @@ func initiateParkAndIssueTicket(commands []string) {
 func initiateUnParkAndGenerateReceipt(commands []string) {
 	ticketNumber := commands[len(commands)-1]
 	fmt.Println(commands)
-	ticketID, _ := strconv.Atoi(ticketNumber)
+	ticketID, _ := strconv.Atoi(strings.TrimLeft(ticketNumber, "0"))
 	receipt := parkingLot.UnPark(ticketID)
 	if receipt != nil {
 		receipt.Generate()

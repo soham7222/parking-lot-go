@@ -32,7 +32,7 @@ func NewParkingLot(totalCapacity map[enum.SpotType]int,
 	return &parkingLot{
 		totalCapacity:      totalCapacity,
 		remainingCapacity:  totalCapacity,
-		spots:              getSpots(totalCapacity),
+		spots:              initializeSpots(totalCapacity),
 		parkingType:        parkingType,
 		ticketSpotMapper:   make(map[int]*spot.Spot, 0),
 		ticketIdGenerator:  counter(),
@@ -74,10 +74,10 @@ func (p *parkingLot) UnPark(ticketNumber int) receipt.Receipt {
 
 		parkingCharges := p.feeFactory.
 			GetFeeCalculator(p.parkingType).
-			Calculate(slotToBeFreed.GetEntryTime(), slotToBeFreed.GetType())
+			Calculate(slotToBeFreed.GetVehicleEntryTime(), slotToBeFreed.GetType())
 
 		receiptForParking := receipt.NewReceipt(p.receiptIdGenerator(),
-			ticketNumber, slotToBeFreed.GetEntryTime(), p.clock.Now(), parkingCharges)
+			ticketNumber, slotToBeFreed.GetVehicleEntryTime(), p.clock.Now(), parkingCharges)
 		return receiptForParking
 	} else {
 		return nil
@@ -95,7 +95,7 @@ func (p *parkingLot) getFirstAvailableSlotNumber(spotType enum.SpotType) int {
 	return -1
 }
 
-func getSpots(totalCapacity map[enum.SpotType]int) map[enum.SpotType][]spot.Spot {
+func initializeSpots(totalCapacity map[enum.SpotType]int) map[enum.SpotType][]spot.Spot {
 	result := make(map[enum.SpotType][]spot.Spot)
 	for key, value := range totalCapacity {
 		result[key] = make([]spot.Spot, value)
