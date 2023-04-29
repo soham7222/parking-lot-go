@@ -41,7 +41,7 @@ Unpark scooter, ticket number 001
 
 #### Example:
 
-This is an example with Mall parking lot where you have three scooter/motorcycle and three small car/suv parking. The current main.go illustrates this example. 
+This is an example with Mall parking lot where you have three scooter/motorcycle and three small car/suv parking. The current `main.go` illustrates this example. 
 
 ```sh
 $ go run main.go
