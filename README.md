@@ -99,7 +99,6 @@ Entry Date: 30-Apr-2023 00:32:45
 > Park scooter
 The parking is full for scooter. Please come back later. 
 > Unpark scooter,ticket number 6       
-[Unpark scooter,ticket number 6]
 ------------------------------------------
 Parking receipt:
 
