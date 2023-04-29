@@ -14,14 +14,14 @@ type Spot struct {
 	vehicleEntryTime time.Time
 }
 
-var slotVehicleMapping = map[enum.SpotType][]string{
+var SlotVehicleMapping = map[enum.SpotType][]string{
 	enum.TwoWheelers:      {"Motorcycle", "Scooter"},
 	enum.SmallFourWheeler: {"Car", "SUV"},
 	enum.BigFourWheeler:   {"Bus", "Truck"},
 }
 
 func (s *Spot) GetType() enum.SpotType {
-	for slotType, vehicles := range slotVehicleMapping {
+	for slotType, vehicles := range SlotVehicleMapping {
 		if contains(vehicles, s.vehicle) {
 			s.spotType = slotType
 			return slotType
