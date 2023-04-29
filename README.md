@@ -46,7 +46,7 @@ $ go run main.go
 >
 Commands available to use:
 Type exit to exit the program
-Type exit to reset to reset parking lot mode
+Type reset to reset to reset parking lot mode
 Choose Your parking lot. Below options are available
 1. Mall
 2. Stadium
