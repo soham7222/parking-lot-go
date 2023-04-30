@@ -148,5 +148,7 @@ ticket number: 008
 spot number: 2
 Entry Date: 30-Apr-2023 00:34:45
 ------------------------------------------ 
+> Park Truck
+parking not supported
 > exit
 ```
