@@ -9,9 +9,9 @@ const (
 )
 
 var stringToParkingLotMode = map[string]ParkingLotType{
-	"Mall":    1,
-	"Stadium": 2,
-	"Airport": 3,
+	"Mall":    0,
+	"Stadium": 1,
+	"Airport": 2,
 }
 
 func StringToParkingLotMode(spot string) ParkingLotType {
