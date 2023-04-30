@@ -3,6 +3,7 @@ package parkinglot
 import (
 	"sahaj-parking-lot/clock"
 	"sahaj-parking-lot/enum"
+	parkingErr "sahaj-parking-lot/error"
 	"sahaj-parking-lot/feemodel"
 	"sahaj-parking-lot/receipt"
 	"sahaj-parking-lot/spot"
@@ -10,8 +11,8 @@ import (
 )
 
 type ParkingLot interface {
-	Park(vehicle string) ticket.Ticket
-	UnPark(ticketNumber int) receipt.Receipt
+	Park(vehicle string) (ticket.Ticket, error)
+	UnPark(ticketNumber int) (receipt.Receipt, error)
 }
 
 type parkingLot struct {
@@ -42,14 +43,18 @@ func NewParkingLot(totalCapacity map[enum.SpotType]int,
 	}
 }
 
-func (p *parkingLot) Park(vehicle string) ticket.Ticket {
+func (p *parkingLot) Park(vehicle string) (ticket.Ticket, error) {
 	entryTime := p.clock.Now()
 	assignedSpot := spot.NewSpot(vehicle, entryTime)
 	assignedSpotType := assignedSpot.GetType()
 
+	if len(p.spots[assignedSpotType]) == 0 {
+		return nil, parkingErr.ErrParkingNotSupported
+	}
+
 	assignedSlotNumber := p.getFirstAvailableSlotNumber(assignedSpotType)
 	if assignedSlotNumber < 0 {
-		return nil
+		return nil, parkingErr.ErrParkingFull
 	} else {
 		assignedSpot.AssignSpotNumberAndMarkAsOccupied(assignedSlotNumber)
 		spotTypeSlots := p.spots[assignedSpotType]
@@ -60,11 +65,11 @@ func (p *parkingLot) Park(vehicle string) ticket.Ticket {
 		ticketNumber := p.ticketIdGenerator()
 		p.ticketSpotMapper[ticketNumber] = &assignedSpot
 		ticketToBeIssued := ticket.NewTicket(ticketNumber, assignedSpot.GetNumber(), entryTime)
-		return ticketToBeIssued
+		return ticketToBeIssued, nil
 	}
 }
 
-func (p *parkingLot) UnPark(ticketNumber int) receipt.Receipt {
+func (p *parkingLot) UnPark(ticketNumber int) (receipt.Receipt, error) {
 	slotToBeFreed := p.ticketSpotMapper[ticketNumber]
 
 	if slotToBeFreed != nil {
@@ -78,9 +83,9 @@ func (p *parkingLot) UnPark(ticketNumber int) receipt.Receipt {
 
 		receiptForParking := receipt.NewReceipt(p.receiptIdGenerator(),
 			ticketNumber, slotToBeFreed.GetVehicleEntryTime(), p.clock.Now(), parkingCharges)
-		return receiptForParking
+		return receiptForParking, nil
 	} else {
-		return nil
+		return nil, parkingErr.ErrInvalidTicketNumber
 	}
 }
 

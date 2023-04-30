@@ -99,22 +99,22 @@ func Init() {
 }
 
 func initiateParkAndIssueTicket(commands []string) {
-	ticket := parkingLot.Park(commands[1])
-	if ticket != nil {
+	ticket, err := parkingLot.Park(commands[1])
+	if err == nil {
 		ticket.Issue()
 	} else {
-		fmt.Printf("The parking is full for %s. Please come back later. \n", commands[1])
+		fmt.Println(err)
 	}
 }
 
 func initiateUnParkAndGenerateReceipt(commands []string) {
 	ticketNumber := commands[len(commands)-1]
 	ticketID, _ := strconv.Atoi(strings.TrimLeft(ticketNumber, "0"))
-	receipt := parkingLot.UnPark(ticketID)
-	if receipt != nil {
+	receipt, err := parkingLot.UnPark(ticketID)
+	if err == nil {
 		receipt.Generate()
 	} else {
-		fmt.Println("Please enter correct ticket id without the leading zeros")
+		fmt.Println(err)
 	}
 }
 
