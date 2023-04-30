@@ -23,8 +23,8 @@ func TestAirportFeeCalculator_Calculate_For_TwoWheelers(t *testing.T) {
 
 func TestAirportFeeCalculator_Calculate_For_BigFourWheeler(t *testing.T) {
 	testFeeFactory := NewFeeFactory()
-	mallCalculator := testFeeFactory.GetFeeCalculator(enum.Airport)
-	charges := mallCalculator.Calculate(time.Now().Add(-10*time.Minute), enum.BigFourWheeler)
+	airportCalculator := testFeeFactory.GetFeeCalculator(enum.Airport)
+	charges := airportCalculator.Calculate(time.Now().Add(-10*time.Minute), enum.BigFourWheeler)
 	assert.Equal(t, charges, float64(-1))
 }
 
