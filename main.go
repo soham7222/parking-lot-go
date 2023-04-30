@@ -84,12 +84,20 @@ func Init() {
 	twoWheelerParkingCount, _ := strconv.Atoi(twoWheelerParking)
 	smallFourWheelerParkingCount, _ := strconv.Atoi(smallFourWheelerParking)
 	bigFourWheelerParkingCount, _ := strconv.Atoi(bigFourWheelerParking)
+	totalCapacity := map[enum.SpotType]int{
+		enum.TwoWheelers:      twoWheelerParkingCount,
+		enum.SmallFourWheeler: smallFourWheelerParkingCount,
+		enum.BigFourWheeler:   bigFourWheelerParkingCount,
+	}
+
+	remainingCapacity := map[enum.SpotType]int{
+		enum.TwoWheelers:      twoWheelerParkingCount,
+		enum.SmallFourWheeler: smallFourWheelerParkingCount,
+		enum.BigFourWheeler:   bigFourWheelerParkingCount,
+	}
 	parkingLot = parkinglot.NewParkingLot(
-		map[enum.SpotType]int{
-			enum.TwoWheelers:      twoWheelerParkingCount,
-			enum.SmallFourWheeler: smallFourWheelerParkingCount,
-			enum.BigFourWheeler:   bigFourWheelerParkingCount,
-		}, enum.StringToParkingLotMode(parkingLotMode),
+		totalCapacity, remainingCapacity,
+		enum.StringToParkingLotMode(parkingLotMode),
 		clock.NewClock(), feeFactory)
 	fmt.Println("Now you can start parking and unparking scooter, motorcycle, cars, suv, bus and truck")
 	fmt.Println("Use the below command structure to park and unpark vehicles")

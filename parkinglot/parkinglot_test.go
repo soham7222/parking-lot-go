@@ -43,13 +43,18 @@ func Test_airport_parking_lot_calculate_parking_charges(t *testing.T) {
 		mockClock.EXPECT().Now().Return(fiveMinutesBefore).Times(1),
 		// two Scooter get un parked
 		mockClock.EXPECT().Now().Return(time.Now()).Times(2),
-		// the seventh scooter have entered 10 minutes before
+		// the seventh scooter have entered 5 minutes before
+		mockClock.EXPECT().Now().Return(fiveMinutesBefore).Times(1),
+		// one truck have entered 5 minutes before
 		mockClock.EXPECT().Now().Return(fiveMinutesBefore).Times(1),
 	)
 
 	feeFactory := feemodel.NewFeeFactory()
 	parkingLot := NewParkingLot(
 		map[enum.SpotType]int{
+			enum.TwoWheelers:      3,
+			enum.SmallFourWheeler: 1,
+		}, map[enum.SpotType]int{
 			enum.TwoWheelers:      3,
 			enum.SmallFourWheeler: 1,
 		}, enum.Airport, mockClock, feeFactory)
@@ -130,4 +135,9 @@ func Test_airport_parking_lot_calculate_parking_charges(t *testing.T) {
 	receipt6, err := parkingLot.UnPark(99990)
 	assert.Equal(t, nil, receipt6)
 	assert.Equal(t, err, parkingErr.ErrInvalidTicketNumber)
+
+	//Eighth scooter comes for parking but parking is full so Ticket is nil
+	ticket10, err := parkingLot.Park("Truck")
+	assert.Nil(t, ticket10)
+	assert.Equal(t, err, parkingErr.ErrParkingNotSupported)
 }

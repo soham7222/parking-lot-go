@@ -1,6 +1,7 @@
 package parkinglot
 
 import (
+	"fmt"
 	"sahaj-parking-lot/clock"
 	"sahaj-parking-lot/enum"
 	parkingErr "sahaj-parking-lot/error"
@@ -28,6 +29,7 @@ type parkingLot struct {
 }
 
 func NewParkingLot(totalCapacity map[enum.SpotType]int,
+	remainingCapacity map[enum.SpotType]int,
 	parkingType enum.ParkingLotType, clock clock.Clock,
 	feeFactory feemodel.FeeFactory) ParkingLot {
 	return &parkingLot{
@@ -90,6 +92,7 @@ func (p *parkingLot) UnPark(ticketNumber int) (receipt.Receipt, error) {
 }
 
 func (p *parkingLot) getFirstAvailableSlotNumber(spotType enum.SpotType) int {
+	fmt.Println(p.totalCapacity[spotType])
 	if p.remainingCapacity[spotType] > 0 {
 		for i := 0; i <= p.totalCapacity[spotType]+1; i++ {
 			if !p.spots[spotType][i].IsOccupied() {
