@@ -160,3 +160,51 @@ Entry Date: 30-Apr-2023 00:34:45
 parking not supported
 > exit
 ```
+
+#### Test Cases Added for following scenario:
+
+Mall parking lot
+Spots:
+● Motorcycles/scooters: 100 spots
+● Cars/SUVs: 80 spots
+● Buses/Trucks: 10 spots
+Fee Model: Please refer to the Mall fee model and its examples, mentioned in the ‘Fee
+Models’ section
+Scenarios: The park and unpark steps shown in the previous example have been skipped to
+reduce the text in the problem statement.
+● Motorcycle parked for 3 hours and 30 mins. Fees: 40
+● Car parked for 6 hours and 1 min. Fees: 140
+● Truck parked for 1 hour and 59 mins. Fees: 100
+
+Stadium Parking Lot
+Spots:
+● Motorcycles/scooters: 1000 spots
+● Cars/SUVs: 1500 spots
+Fee Model: Please refer to the Stadium fee model mentioned in the ‘Fee Models’ section
+Scenarios: The park and unpark steps shown in the previous example have been skipped to
+reduce the text in the problem statement.
+● Motorcycle parked for 3 hours and 40 mins. Fees: 30
+● Motorcycle parked for 14 hours and 59 mins. Fees: 390.
+○ 30 for the first 4 hours. 60 for the next 8 hours. And then 300 for the
+remaining duration.
+● Electric SUV parked for 11 hours and 30 mins. Fees: 180.
+○ 60 for the first 4 hours and then 120 for the remaining duration.
+● SUV parked for 13 hours and 5 mins. Fees: 580.
+○ 60 for the first 4 hours and then 120 for the next 8 hours. 400 for the
+remaining duration.
+
+Airport Parking Lot
+Spots:
+● Motorcycles/scooters: 200 spots
+● Cars/SUVs: 500 spots
+● Buses/Trucks: 100 spots
+Fee Model: Please refer to the Airport fee model mentioned in the ‘Fee Models’ section
+Scenarios: The park and unpark steps shown in the previous example have been skipped to
+reduce the text in the problem statement.
+5
+● Motorcycle parked for 55 mins. Fees: 0
+● Motorcycle parked for 14 hours and 59 mins. Fees: 60
+● Motorcycle parked for 1 day and 12 hours. Fees: 160
+● Car parked for 50 mins. Fees: 60
+● SUV parked for 23 hours and 59 mins. Fees: 80
+● Car parked for 3 days and 1 hour. Fees: 400
