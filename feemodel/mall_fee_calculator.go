@@ -14,11 +14,7 @@ func NewMallFeeCalculator() FeeCalculator {
 }
 
 func (m mallFeeCalculator) Calculate(vehicleEntry time.Time, spotType enum.SpotType) float64 {
-	timeSpentInHours := math.Round(time.Now().Sub(vehicleEntry).Hours())
-	timeSpentInMinutes := math.Round(time.Now().Sub(vehicleEntry).Minutes())
-	if timeSpentInHours == 0 && timeSpentInMinutes != 0 {
-		timeSpentInHours = 1
-	}
+	timeSpentInHours := math.Ceil(time.Now().Sub(vehicleEntry).Hours())
 
 	switch spotType {
 	case enum.TwoWheelers:
