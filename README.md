@@ -21,6 +21,8 @@ make run_local
   >it unparks the car and generates the receipt
 * **exit**
   >it exits the console program
+* **reset**
+  >it resets the console and you can start from fresh
 
 ### Vehicle available for action as command
 
