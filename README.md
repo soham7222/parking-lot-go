@@ -111,7 +111,7 @@ spot number: 2
 Entry Date: 30-Apr-2023 00:32:45
 ------------------------------------------
 > Park scooter
-The parking is full for scooter. Please come back later. 
+parking is full
 > Unpark scooter,ticket number 006       
 ------------------------------------------
 Parking receipt:
