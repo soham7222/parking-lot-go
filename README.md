@@ -13,6 +13,12 @@ make install_deps
 make run_local
 ```
 
+### Run application locally
+```
+make build_local 
+./sahaj-parking-lot
+```
+
 ### Action available to run in parking lot console
 
 * **Park**

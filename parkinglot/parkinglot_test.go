@@ -133,11 +133,15 @@ func Test_airport_parking_lot_calculate_parking_charges(t *testing.T) {
 
 	// trying to un park from a ticket number which is not in the system should return nil
 	receipt6, err := parkingLot.UnPark(99990)
-	assert.Equal(t, nil, receipt6)
+	assert.Nil(t, receipt6)
 	assert.Equal(t, err, parkingErr.ErrInvalidTicketNumber)
 
 	//Eighth scooter comes for parking but parking is full so Ticket is nil
 	ticket10, err := parkingLot.Park("Truck")
 	assert.Nil(t, ticket10)
 	assert.Equal(t, err, parkingErr.ErrParkingNotSupported)
+
+	// trying to generate a receipt of already left vehicle
+	receipt7, err := parkingLot.UnPark(ticket1.GetNumber())
+	assert.Equal(t, receipt5, receipt7)
 }
