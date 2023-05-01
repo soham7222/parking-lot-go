@@ -50,113 +50,93 @@ Unpark scooter, ticket number 001
 #### Example:
 
 ```sh
-$ go run main.go
->
+$ make run_local
+go run main.go
 Commands available to use:
 Type exit to exit the program
-Type reset to reset to reset parking lot mode
+Type exit to reset to reset parking lot mode
 Choose Your parking lot. Below options are available
 1. Mall
 2. Stadium
 3. Airport
 > Mall
 Type the number of spots to be added for scooter/motorcycle 
-> 3
+> 2
 Type the number of spots to be added for cars/suv
-> 3
+> 2
 Type the number of spots to be added for bus/truck
-> 0 
-> Park scooter
+> 0
+Now you can start parking and unparking scooter, motorcycle, cars, suv, bus and truck
+Use the below command structure to park and unpark vehicles
+Park Scooter
+Unpark Scooter, ticket number 001
+
+> Park Scooter
 ------------------------------------------
 Parking ticket:
 
 ticket number: 001
 spot number: 0
-Entry Date: 30-Apr-2023 00:30:58
+Entry Date: 01-May-2023 13:19:51
 ------------------------------------------
-> Park car
+> Park Car
 ------------------------------------------
 Parking ticket:
 
 ticket number: 002
 spot number: 0
-Entry Date: 30-Apr-2023 00:31:02
-------------------------------------------
-> Park SUV
-------------------------------------------
-Parking ticket:
-
-ticket number: 003
-spot number: 1
-Entry Date: 30-Apr-2023 00:31:08
+Entry Date: 01-May-2023 13:19:54
 ------------------------------------------
 > Park motorcycle
 ------------------------------------------
 Parking ticket:
 
-ticket number: 004
+ticket number: 003
 spot number: 1
-Entry Date: 30-Apr-2023 00:31:32
-------------------------------------------
-> Park car
-------------------------------------------
-Parking ticket:
-
-ticket number: 005
-spot number: 2
-Entry Date: 30-Apr-2023 00:31:42
-------------------------------------------
-> Park car
-The parking is full for car. Please come back later. 
-> Park suv
-The parking is full for suv. Please come back later. 
-> Park scooter
-------------------------------------------
-Parking ticket:
-
-ticket number: 006
-spot number: 2
-Entry Date: 30-Apr-2023 00:32:45
-------------------------------------------
-> Park scooter
-parking is full
-> Unpark scooter,ticket number 006       
-------------------------------------------
-Parking receipt:
-
-receipt number: R-001
-Ticket number: 006
-Entry Date-time: 30-Apr-2023 00:32:45
-Exit Date-time: 30-Apr-2023 00:33:55
-Fees: 10
-------------------------------------------
-> Park scooter
-------------------------------------------
-Parking ticket:
-
-ticket number: 007
-spot number: 2
-Entry Date: 30-Apr-2023 00:34:07
-------------------------------------------
-> Unpark scooter,ticket number 005
-------------------------------------------
-Parking receipt:
-
-receipt number: R-002
-Ticket number: 005
-Entry Date-time: 30-Apr-2023 00:31:42
-Exit Date-time: 30-Apr-2023 00:34:35
-Fees: 20
+Entry Date: 01-May-2023 13:20:02
 ------------------------------------------
 > Park SUV
 ------------------------------------------
 Parking ticket:
 
-ticket number: 008
-spot number: 2
-Entry Date: 30-Apr-2023 00:34:45
------------------------------------------- 
-> Park Truck
+ticket number: 004
+spot number: 1
+Entry Date: 01-May-2023 13:20:10
+------------------------------------------
+> Park Scooter
+parking is full
+> Park SUV
+parking is full
+> Unpark Scooter, ticket number 001
+------------------------------------------
+Parking receipt:
+
+receipt number: R-001
+Ticket number: 001
+Entry Date-time: 01-May-2023 13:19:51
+Exit Date-time: 01-May-2023 13:21:19
+Fees: 10
+------------------------------------------
+> Park Scooter
+------------------------------------------
+Parking ticket:
+
+ticket number: 005
+spot number: 0
+Entry Date: 01-May-2023 13:21:29
+------------------------------------------
+> Park Bus
 parking not supported
+> Unpark Scooter, ticket number 001
+the vehicle you are trying to unpark has already left the premised. Here is the receipt for that
+------------------------------------------
+Parking receipt:
+
+receipt number: R-001
+Ticket number: 001
+Entry Date-time: 01-May-2023 13:19:51
+Exit Date-time: 01-May-2023 13:21:19
+Fees: 10
+------------------------------------------
 > exit
 ```
