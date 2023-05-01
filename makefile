@@ -15,5 +15,4 @@ test_local:
 
 test_local_with_coverage:
 	go test ./... -p=1 -count=1 -coverprofile=cover.out
-	go tool cover -html=cover.out
 
